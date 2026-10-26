@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Food Handler Checkup Cost Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1F5F9;--card:#FFFFFF;--ink:#1B2430;--muted:#4A5866;--line:#D8DEE4;--accent:#0B6B57;--tint:#EEF5F2;--warn:#8A3B12;--bar1:#8A3B12;--bar2:#0B6B57;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F1720;--card:#17222D;--ink:#EAF0F5;--muted:#A9B8C6;--line:#2A3947;--accent:#5FE0B0;--tint:#14302A;--warn:#F0A878;--bar1:#F0A878;--bar2:#5FE0B0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1720;--card:#17222D;--ink:#EAF0F5;--muted:#A9B8C6;--line:#2A3947;--accent:#5FE0B0;--tint:#14302A;--warn:#F0A878;--bar1:#F0A878;--bar2:#5FE0B0;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',Arial,sans-serif;line-height:1.45}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 40px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{margin:0 0 8px;font-size:30px;line-height:1.15}
+.sub{margin:0 0 22px;color:var(--muted);font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+h2{margin:0 0 12px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:2px}
+input{width:100%;min-height:46px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.save{background:var(--tint);border-color:transparent}
+.big{font-size:40px;font-weight:700;line-height:1.1;color:var(--accent)}
+.save .lbl{font-size:14px;color:var(--muted);margin-top:4px}
+.row{margin:14px 0 0}
+.row .top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;gap:10px}
+.track{height:14px;border-radius:99px;background:var(--line);overflow:hidden}
+.fill{height:100%;border-radius:99px;transition:width .25s}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12.5px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted)}
+.tip{margin:0;padding-left:18px;font-size:14.5px}
+.tip li{margin-bottom:6px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="eyebrow">FSSAI Schedule 4 · Annual food handler checkup</div>
+<h1>What does your checkup cycle really cost?</h1>
+<p class="sub">Enter your own numbers. See clinic visits vs a batched camp day, including staff time lost.</p>
+
+<div class="card">
+<h2>Your numbers</h2>
+<div class="grid">
+<div><label for="hc">Food handlers today<span class="hint">Kitchen, service, packing</span></label><input id="hc" type="number" inputmode="numeric" min="0" value="120"></div>
+<div><label for="ol">Outlets<span class="hint">Locations to cover</span></label><input id="ol" type="number" inputmode="numeric" min="1" value="6"></div>
+<div><label for="at">Yearly staff turnover (%)<span class="hint">Joiners you replace each year</span></label><input id="at" type="number" inputmode="numeric" min="0" value="40"></div>
+<div><label for="cc">Clinic cost per person (₹)<span class="hint">Fee for the full checkup</span></label><input id="cc" type="number" inputmode="numeric" min="0" value="500"></div>
+<div><label for="hrs">Hours lost per clinic visit<span class="hint">Travel, waiting, exam</span></label><input id="hrs" type="number" inputmode="decimal" min="0" step="0.5" value="1.5"></div>
+<div><label for="wg">Staff cost per hour (₹)<span class="hint">Wage plus cover</span></label><input id="wg" type="number" inputmode="numeric" min="0" value="100"></div>
+<div><label for="cp">Camp cost per person (₹)<span class="hint">Quote from the doctor or lab</span></label><input id="cp" type="number" inputmode="numeric" min="0" value="350"></div>
+<div><label for="cf">Camp fee per outlet visit (₹)<span class="hint">Doctor visit or setup charge</span></label><input id="cf" type="number" inputmode="numeric" min="0" value="2000"></div>
+</div>
+<p class="note" style="margin:14px 0 0">The numbers above are sample inputs, not market rates. Replace them with your quotes.</p>
+</div>
+
+<div class="card save">
+<h2>Estimated yearly saving with a camp</h2>
+<div class="big" id="saving">₹0</div>
+<div class="lbl" id="savingPct"></div>
+</div>
+
+<div class="card">
+<h2>Cost comparison</h2>
+<div class="row"><div class="top"><span>Clinic visits</span><b id="clinicTotal"></b></div><div class="track"><div class="fill" id="b1" style="background:var(--bar1)"></div></div></div>
+<div class="row"><div class="top"><span>Batched camp</span><b id="campTotal"></b></div><div class="track"><div class="fill" id="b2" style="background:var(--bar2)"></div></div></div>
+<div class="stats">
+<div class="stat"><b id="ppl"></b><span>checkups a year (current staff + replacements)</span></div>
+<div class="stat"><b id="hrsLost"></b><span>staff hours lost at clinics</span></div>
+<div class="stat"><b id="perHead"></b><span>per person: camp vs clinic</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Ways to bring the number down</h2>
+<ul class="tip">
+<li>Group outlets by city so one doctor visit covers several.</li>
+<li>Time joiner checkups into the same camp day instead of paying clinic rates one by one.</li>
+<li>Get written quotes from two or three labs. Ask for a per-head rate that includes the signed certificate.</li>
+</ul>
+</div>
+
+<p class="note">Estimate only. It uses the numbers you enter and assumes all checkups are done through the route shown. Confirm current FSSAI requirements and local rules before you plan. [YOUR COMPANY] · [YOUR EMAIL]</p>
+</div>
+<script>
+(function(){
+var ids=['hc','ol','at','cc','hrs','wg','cp','cf'],el={};
+ids.forEach(function(i){el[i]=document.getElementById(i);el[i].addEventListener('input',calc);});
+function n(id){var v=parseFloat(el[id].value);return isFinite(v)&&v>0?v:0;}
+function inr(x){return '₹'+Math.round(x).toLocaleString('en-IN');}
+function $(id){return document.getElementById(id);}
+function calc(){
+var people=n('hc')+n('hc')*n('at')/100;
+var perClinic=n('cc')+n('hrs')*n('wg');
+var clinic=people*perClinic;
+var camp=people*n('cp')+n('ol')*n('cf');
+var save=clinic-camp;
+var max=Math.max(clinic,camp,1);
+$('clinicTotal').textContent=inr(clinic);
+$('campTotal').textContent=inr(camp);
+$('b1').style.width=(clinic/max*100)+'%';
+$('b2').style.width=(camp/max*100)+'%';
+$('ppl').textContent=Math.round(people).toLocaleString('en-IN');
+$('hrsLost').textContent=Math.round(people*n('hrs')).toLocaleString('en-IN')+' hrs';
+$('perHead').textContent=people>0?inr(camp/people)+' vs '+inr(perClinic):'–';
+if(save>=0){
+$('saving').textContent=inr(save);
+$('savingPct').textContent=clinic>0?Math.round(save/clinic*100)+'% lower than clinic visits':'';
+}else{
+$('saving').textContent='−'+inr(-save);
+$('savingPct').textContent='With these numbers, clinic visits cost less. Check the camp quote or the camp fee per outlet.';
+}
+}
+calc();
+})();
+</script>
+</body>
+</html>
